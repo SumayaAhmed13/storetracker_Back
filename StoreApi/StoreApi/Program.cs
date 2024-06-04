@@ -24,7 +24,10 @@ builder.Services.AddApiVersioning(opt =>
 }).AddApiExplorer(options => {
         options.GroupNameFormat = "'v'VVV"; //The say our format of our version number “‘v’major[.minor][-status]”
         options.SubstituteApiVersionInUrl = true; //This will help us to resolve the ambiguity when there is a routing conflict due to routing template one or more end points are same.
-    }); 
+    });
+
+//
+builder.Services.AddCors();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,6 +37,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(opt=> { opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"); });
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
