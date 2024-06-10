@@ -9,6 +9,7 @@ import {
   CardHeader,
   Avatar,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 const ProductCard = ({ product }) => {
   return (
     <Card>
@@ -33,7 +34,7 @@ const ProductCard = ({ product }) => {
       </CardContent>
       <CardActions>
         <Button size="small">Add to cart</Button>
-        <Button size="small">View</Button>
+        <Button size="small" LinkComponent={Link} to={`/catalog/${product.id}`}>View</Button>
       </CardActions>
     </Card>
   );
