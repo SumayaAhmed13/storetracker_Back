@@ -1,13 +1,17 @@
+import agent from "../../header/api/agent";
+import Loading from "../../header/layout/Loading";
 import ProductList from "./ProductList";
 import { useEffect, useState } from "react";
 const Catalog = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("https://localhost:44339/api/v1/Products")
-      .then((response) => response.json())
-      .then((data) => setProducts(data));
+    agent.Catalog.list()
+    .then((products) => setProducts(products))
+    .catch(error=>console.log(error))
+    .finally(()=>setLoading(false));
   }, []);
-
+  if (loading) return <Loading message="Loading..." />;
   const addProduct = () => {
     setProducts((prevState) => [
       ...prevState,
@@ -21,7 +25,6 @@ const Catalog = () => {
   return (
     <>
       <ProductList products={products} />
-   
     </>
   );
 };

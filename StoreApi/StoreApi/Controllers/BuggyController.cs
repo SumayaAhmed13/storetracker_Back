@@ -17,7 +17,7 @@ namespace StoreApi.Controllers
         [MapToApiVersion("1.0")]
         public ActionResult GetBadRequest()
         {
-            return BadRequest("This is bad request");
+            return BadRequest(new ProblemDetails { Title = "This is a bad request" });
         }
         [HttpGet("unauthorised")]
         [MapToApiVersion("1.0")]
